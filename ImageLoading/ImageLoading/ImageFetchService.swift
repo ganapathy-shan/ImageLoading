@@ -51,7 +51,7 @@ class ImageFetchService: NSObject {
     
     func nsdataToJSON(data: NSData) -> AnyObject? {
         do {
-            return try JSONSerialization.jsonObject(with: data as Data, options: .fragmentsAllowed) as AnyObject
+            return try JSONSerialization.jsonObject(with: data as Data, options: .allowFragments) as AnyObject
         } catch let myJSONError {
             print(myJSONError)
         }
