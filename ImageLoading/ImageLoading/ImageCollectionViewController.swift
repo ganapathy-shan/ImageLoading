@@ -113,6 +113,7 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         if imageData != nil
         {
             cell.pinImageView.image = UIImage(data: imageData! as Data)
+            cell.imageName.text = imageDetails.userName
         }
         else
         {
