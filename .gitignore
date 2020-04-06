@@ -1,0 +1,5 @@
+Build/
+Build/*
+Index/
+Index/*
+.DS_Store
