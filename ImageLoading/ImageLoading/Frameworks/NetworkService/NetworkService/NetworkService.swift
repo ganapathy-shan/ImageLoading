@@ -10,20 +10,19 @@ import UIKit
 
 import UIKit
 
-public typealias DataTaskCompletionBlock = (NSData,URLResponse,Error?)->Void
+public typealias DataTaskCompletionBlock = (Data, Error?)->Void
 
 /**
 class which provides the API for downloading any data from url
 */
 open class NetworkService: NSObject {
     
-    private var session:URLSession
-    private var downloadTask:URLSessionTask?
-    private var downloadCancelled:Bool = false
+    private var session : URLSession
+    private var downloadTask : URLSessionTask?
+    private var downloadCancelled : Bool = false
     
     public init(_ session:URLSession!) {
         self.session = session
-        self.downloadTask = nil
     }
     
     /**
@@ -40,18 +39,15 @@ open class NetworkService: NSObject {
             self.downloadTask = self.session.dataTask(with: URL(string: url)!, completionHandler: { (data, response, error) in
                 if let data = data
                 {
-                    if data.count > 0
+                    if let cacheManager = cacheManager
                     {
-                        if cacheManager != nil
-                        {
-                            cacheManager!.setFile(data: data as NSData, forKey:url as NSString)
-                        }
-                        completionHandler(data as NSData,response!,error)
+                        cacheManager.setFile(data: data, forKey:url as NSString)
                     }
+                    completionHandler(data, error)
                 }
             })
             
-            self.downloadTask!.resume()
+            self.downloadTask?.resume()
         }
     }
     
@@ -59,9 +55,12 @@ open class NetworkService: NSObject {
        It cancels the current Download task
        */
     public func cancelDownload() {
+        guard let downloadTask = self.downloadTask else { return }
         downloadCancelled = true
-        if self.downloadTask?.state == URLSessionTask.State.running
-        {self.downloadTask!.cancel()}
+        if downloadTask.state == URLSessionTask.State.running
+        {
+            downloadTask.cancel()
+        }
     }
 }
 

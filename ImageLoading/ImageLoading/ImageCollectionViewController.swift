@@ -19,9 +19,9 @@ class which downloads and shows list of images in UIcollectionView
 */
 class ImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    public var imageDetailsArray: Array<ImageDetailsModel>!
-    private var cacheManager: FileCache!
-    private var downloader: ImageDownloader! = ImageDownloader()
+    public var imageDetailsArray: Array<ImageDetailsModel>?
+    private var cacheManager: FileCache?
+    private var downloader: ImageDownloader = ImageDownloader()
     private let refreshControl : UIRefreshControl = UIRefreshControl()
     private let loadingAlert : UIAlertController = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
     private let group = DispatchGroup()
@@ -53,7 +53,7 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     @objc private func refreshImages(_ sender: Any) {
         // Fetch image Details
         fetchImageDetailsFromJson()
-        cacheManager.clearCache()
+        cacheManager?.clearCache()
         self.collectionView.reloadData()
     }
     
@@ -99,6 +99,7 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         group.wait()
+        guard let imageDetailsArray = imageDetailsArray else {return 1}
         return imageDetailsArray.count
     }
     
@@ -107,9 +108,9 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         let cell : ImageCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCollectionViewCell
         
         // Configure the cell
-        
-        let imageDetails : ImageDetailsModel = self.imageDetailsArray[indexPath.row];
-        let imageData: NSData! = (cacheManager.getFileForKey(key: imageDetails.imageURL as NSString))
+        guard let imageDetailsArray = imageDetailsArray else {return cell}
+        let imageDetails : ImageDetailsModel = imageDetailsArray[indexPath.row];
+        let imageData: NSData! = (cacheManager?.getFileForKey(key: imageDetails.imageURL as NSString))
         if imageData != nil
         {
             cell.pinImageView.image = UIImage(data: imageData! as Data)
@@ -135,7 +136,8 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let imageDetails : ImageDetailsModel = self.imageDetailsArray[indexPath.row];
+        guard let imageDetailsArray = imageDetailsArray else {return }
+        let imageDetails : ImageDetailsModel = imageDetailsArray[indexPath.row];
         self.downloader.cancelDownloadForURL(url: imageDetails.imageURL)
     }
     

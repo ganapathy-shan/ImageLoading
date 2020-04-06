@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KV6-ui-pwZ">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KV6-ui-pwZ">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +13,7 @@
             <objects>
                 <navigationController id="KV6-ui-pwZ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vRW-qo-0Dr">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -35,14 +33,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCq-rN-YSf">
-                                <rect key="frame" x="151" y="385" width="112" height="30"/>
+                                <rect key="frame" x="151" y="375" width="112" height="30"/>
                                 <state key="normal" title="PinBoardImages"/>
                                 <connections>
                                     <segue destination="X7k-oM-CUH" kind="show" id="iVM-tr-E89"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3E-RA-3E7">
-                                <rect key="frame" x="133" y="305.66666666666669" width="148" height="30"/>
+                                <rect key="frame" x="133" y="295.66666666666669" width="148" height="30"/>
                                 <state key="normal" title="SampleImageLoading"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="XRO-5p-9ah"/>
@@ -87,10 +85,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RbV-AG-KI9">
-                                            <rect key="frame" x="0.0" y="0.0" width="120" height="90"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkV-Yt-KCO">
-                                            <rect key="frame" x="39" y="92" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkV-Yt-KCO">
+                                            <rect key="frame" x="-11.666666666666664" y="22" width="73.333333333333329" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -145,28 +143,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LMV-Pq-qnG">
-                                <rect key="frame" x="87.666666666666686" y="348" width="239" height="104"/>
+                                <rect key="frame" x="87.666666666666686" y="338" width="239" height="104"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="239" id="c1z-x8-7lw"/>
                                     <constraint firstAttribute="height" constant="104" id="ncx-fT-gU3"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ar-u8-eiL">
-                                <rect key="frame" x="183" y="482" width="48" height="30"/>
+                                <rect key="frame" x="183" y="472" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelDownload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0G5-lM-hKt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1E-5O-0zg">
-                                <rect key="frame" x="172.66666666666666" y="269.66666666666669" width="69" height="30"/>
+                                <rect key="frame" x="172.66666666666666" y="259.66666666666669" width="69" height="30"/>
                                 <state key="normal" title="Download"/>
                                 <connections>
                                     <action selector="startDownload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JDX-0v-K9n"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2r-VU-8m8">
-                                <rect key="frame" x="166.66666666666666" y="532" width="81" height="30"/>
+                                <rect key="frame" x="166.66666666666666" y="522" width="81" height="30"/>
                                 <state key="normal" title="ResetImage"/>
                                 <connections>
                                     <action selector="resetImageView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9l6-Hm-rWk"/>

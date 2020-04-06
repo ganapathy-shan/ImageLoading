@@ -15,8 +15,8 @@ class which is used to test image downloader class
 class SampleImageLoadingViewController : UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
-    private var downloader: ImageDownloader!
-    private var cacheManager: FileCache!
+    private var downloader: ImageDownloader?
+    private var cacheManager: FileCache?
     
     override func viewDidLoad() {
         downloader = ImageDownloader()
@@ -36,7 +36,7 @@ class SampleImageLoadingViewController : UIViewController {
         }
         else
         {
-            downloader.downloadFromURL(url: "https://images.unsplash.com/photo-1464550883968-cec281c19761", saveInto: cacheManager, success: { (image: UIImage?) in
+            downloader?.downloadFromURL(url: "https://images.unsplash.com/photo-1464550883968-cec281c19761", saveInto: cacheManager, success: { (image: UIImage?) in
                 if image != nil
                 {
                     DispatchQueue.main.async {

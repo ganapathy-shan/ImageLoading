@@ -20,10 +20,9 @@ class which inherits from Operation class and uses NetworkService API for downlo
 */
 class ImageDownloaderOperation : Operation {
     
-    private var urlToDownload:String!
-    private var cacheManager:FileCache!
-    private var downloadService:NetworkService!
-    private var downloadedData:NSData!
+    private var urlToDownload:String
+    private var cacheManager:FileCache?
+    private var downloadService:NetworkService
     private var _state: OperationState = .ready
     
     //Using Queue to avoid race condition while accessing Operation state
@@ -67,13 +66,12 @@ class ImageDownloaderOperation : Operation {
     }
     
     override func main() {
-        self.downloadService.downloadFromURL(url: self.urlToDownload, storeIn:self.cacheManager, completionHandler:{ (data:NSData,response:URLResponse,error:Error?) in
+        self.downloadService.downloadFromURL(url: self.urlToDownload, storeIn:self.cacheManager, completionHandler:{ (data: Data, error:Error?) in
             if self.isCancelled
             {return }
             if data.count > 0
             {
-                self.downloadedData = data
-                self.cacheManager.setFile(data: data, forKey:self.urlToDownload as NSString)
+                self.cacheManager?.setFile(data: data, forKey:self.urlToDownload as NSString)
                 self.finish()
             }
             } as DataTaskCompletionBlock)

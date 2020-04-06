@@ -30,22 +30,17 @@ class ImageFetchService: NSObject {
     */
     public func fetchImageDetails(url : String, downloader : ImageDownloader, completion completionBlock :@escaping ImageFetchCompletion ){
         
-        var imageModelArray : Array = Array<ImageDetailsModel>()
         let networkService:NetworkService = NetworkService(URLSession.shared)
-        networkService.downloadFromURL(url: url, storeIn: nil) { (data : NSData, response :URLResponse, error : Error?) in
+        networkService.downloadFromURL(url: url, storeIn: nil) { (data : Data, error : Error?) in
             
-            let jsonData : Array = self.nsdataToJSON(data: data) as! Array<Any>
-            
-            for item in jsonData
-            {
-                let imagedictionary : NSDictionary = item as! NSDictionary
-                let userID = imagedictionary.value(forKey: "id") as! String
-                let userName =  ((imagedictionary.value(forKey: "user")) as! NSDictionary).value(forKey: "name") as! String
-                let imageURL =  ((imagedictionary.value(forKey: "urls")) as! NSDictionary).value(forKey: "thumb") as! String
-                let imageModel : ImageDetailsModel = ImageDetailsModel(userID: userID, userName: userName, imageURL: imageURL)
-                imageModelArray.append(imageModel)
+            do {
+                let imageModel = try JSONDecoder().decode([ImageDetailsModel].self, from: data)
+                completionBlock(imageModel)
+            } catch {
+                print(error.localizedDescription)
+                completionBlock(nil)
             }
-            completionBlock(imageModelArray)
+
         }
     }
     

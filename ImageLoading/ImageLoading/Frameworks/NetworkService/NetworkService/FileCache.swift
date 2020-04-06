@@ -20,8 +20,8 @@ open class FileCache: NSObject {
         self.fileCache.countLimit = size
     }
     
-    public func setFile(data:NSData, forKey key:NSString) {
-        self.fileCache.setObject(data, forKey: key)
+    public func setFile(data:Data, forKey key:NSString) {
+        self.fileCache.setObject(data as NSData, forKey: key)
     }
     
     public func getFileForKey(key:NSString) -> NSData! {

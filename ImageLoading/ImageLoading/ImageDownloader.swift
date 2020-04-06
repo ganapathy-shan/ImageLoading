@@ -32,7 +32,7 @@ class ImageDownloader {
     }
     
     func downloadFromURL(url:String!, saveInto cacheManger:FileCache!, success successBlock:@escaping DownloadSuccess, failure failureBlock:@escaping DownloadFailed) {
-        let download:ImageDownloaderOperation! = ImageDownloaderOperation(url: url, with:cacheManger)
+        let download:ImageDownloaderOperation = ImageDownloaderOperation(url: url, with:cacheManger)
         weak var weakDownload:ImageDownloaderOperation! = download
         download.completionBlock = {
             if weakDownload.isCancelled

@@ -11,15 +11,26 @@ import Foundation
 /**
 class that stores details about images
 */
-class ImageDetailsModel
+struct ImageDetailsModel : Decodable
 {
     let userID : String
     let userName : String
     let imageURL : String
     
-    init(userID: String, userName: String, imageURL: String){
-        self.userID = userID
-        self.userName = userName
-        self.imageURL = imageURL
+    enum CodingKeys : String, CodingKey {
+        case user
+        case userID = "id"
+        case userName = "username"
+        case profile_image
+        case imageURL = "large"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let user = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .user)
+        userID = try user.decode(String.self, forKey: .userID)
+        userName = try user.decode(String.self, forKey: .userName)
+        let profileImages = try user.nestedContainer(keyedBy: CodingKeys.self, forKey: .profile_image)
+        imageURL = try profileImages.decode(String.self, forKey: .imageURL)
     }
 }
