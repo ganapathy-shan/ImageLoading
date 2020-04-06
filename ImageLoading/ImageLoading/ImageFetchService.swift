@@ -7,11 +7,11 @@
 //
 
 import UIKit
-typealias ImageFetchCompletion = (Array<ImageDetailsModel>?)->Void
+typealias ImageFetchCompletion = (Array<UserDetailsModel>?)->Void
 
 import Foundation
 import NetworkService
-typealias LoadJsonSuccess = (Array<ImageDetailsModel>?)->Void
+typealias LoadJsonSuccess = (Array<UserDetailsModel>?)->Void
 
 /**
 class which provides the API to download image details from JSON 
@@ -20,22 +20,23 @@ class which provides the API to download image details from JSON
 class ImageFetchService: NSObject {
     
     /**
-    It fetches details and urls for all images from json downloaded from the given url  calls completionHandler with imageDetails
+    It fetches details and urls for all images from json downloaded from the given url calls completionHandler with UserDatails
 
     - Parameters:
        - url: url to download json file
        - downloader : ImageDownloader instance which  downloads images asynchronously
-       - completionBlock: block which gets called after download  completion with array of ImageDetails
+       - completionBlock: block which gets called after download  ompletion with array of UserDetails
     - Returns: N/A
     */
-    public func fetchImageDetails(url : String, downloader : ImageDownloader, completion completionBlock :@escaping ImageFetchCompletion ){
+    public func fetchUserDetails(url : String, downloader : ImageDownloader, completion completionBlock :@escaping ImageFetchCompletion ){
         
         let networkService:NetworkService = NetworkService(URLSession.shared)
         networkService.downloadFromURL(url: url, storeIn: nil) { (data : Data, error : Error?) in
             
             do {
-                let imageModel = try JSONDecoder().decode([ImageDetailsModel].self, from: data)
-                completionBlock(imageModel)
+                let imageModel = try JSONDecoder().decode([UserDetailsModel].self, from: data)
+                let uniqueImageModel = removeDuplicates(userDetailsModelArray: imageModel)
+                completionBlock(uniqueImageModel)
             } catch {
                 print(error.localizedDescription)
                 completionBlock(nil)

@@ -1,5 +1,5 @@
 //
-//  ImageDetailsModel.swift
+//  UserDetailsModel.swift
 //  ImageLoading
 //
 //  Created by Shanmuganathan on 14/08/19.
@@ -11,7 +11,7 @@ import Foundation
 /**
 class that stores details about images
 */
-struct ImageDetailsModel : Decodable
+struct UserDetailsModel : Decodable
 {
     let userID : String
     let userName : String
@@ -20,7 +20,7 @@ struct ImageDetailsModel : Decodable
     enum CodingKeys : String, CodingKey {
         case user
         case userID = "id"
-        case userName = "username"
+        case userName = "name"
         case profile_image
         case imageURL = "large"
     }
@@ -33,4 +33,22 @@ struct ImageDetailsModel : Decodable
         let profileImages = try user.nestedContainer(keyedBy: CodingKeys.self, forKey: .profile_image)
         imageURL = try profileImages.decode(String.self, forKey: .imageURL)
     }
+}
+
+extension UserDetailsModel : Hashable, Equatable
+{
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(userID)
+        hasher.combine(userName)
+    }
+}
+
+func ==(left:UserDetailsModel, right:UserDetailsModel) -> Bool
+{
+    return left.userID == right.userID
+}
+
+func removeDuplicates(userDetailsModelArray : [UserDetailsModel]) -> [UserDetailsModel]
+{
+    return Array(Set(userDetailsModelArray))
 }

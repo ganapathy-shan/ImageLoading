@@ -17,7 +17,7 @@
 		C78FA32F2301A253001619E2 /* ImageLoadingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78FA32E2301A253001619E2 /* ImageLoadingUITests.swift */; };
 		C78FA33D2301A381001619E2 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78FA33C2301A381001619E2 /* ImageDownloader.swift */; };
 		C7A8BAB42304701D00F46317 /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A8BAB22304701D00F46317 /* ImageCollectionViewController.swift */; };
-		C7A8BAB723047ED000F46317 /* ImageDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A8BAB623047ED000F46317 /* ImageDetailsModel.swift */; };
+		C7A8BAB723047ED000F46317 /* UserDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A8BAB623047ED000F46317 /* UserDetailsModel.swift */; };
 		C7A8BABB2304821600F46317 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A8BABA2304821600F46317 /* ImageCollectionViewCell.swift */; };
 		C7D8EE4B2306A769008E9F09 /* ImageFetchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8EE4A2306A769008E9F09 /* ImageFetchService.swift */; };
 /* End PBXBuildFile section */
@@ -90,7 +90,7 @@
 		C78FA3302301A253001619E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C78FA33C2301A381001619E2 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		C7A8BAB22304701D00F46317 /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
-		C7A8BAB623047ED000F46317 /* ImageDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailsModel.swift; sourceTree = "<group>"; };
+		C7A8BAB623047ED000F46317 /* UserDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsModel.swift; sourceTree = "<group>"; };
 		C7A8BABA2304821600F46317 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		C7D8EE3D2306869C008E9F09 /* NetworkService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NetworkService.xcodeproj; path = ImageLoading/Frameworks/NetworkService/NetworkService.xcodeproj; sourceTree = "<group>"; };
 		C7D8EE4A2306A769008E9F09 /* ImageFetchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchService.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 				C78FA33C2301A381001619E2 /* ImageDownloader.swift */,
 				C721D2F52302F4D20089E0A2 /* ImageDownloadOperation.swift */,
 				C7A8BAB22304701D00F46317 /* ImageCollectionViewController.swift */,
-				C7A8BAB623047ED000F46317 /* ImageDetailsModel.swift */,
+				C7A8BAB623047ED000F46317 /* UserDetailsModel.swift */,
 				C7A8BABA2304821600F46317 /* ImageCollectionViewCell.swift */,
 				C7D8EE4A2306A769008E9F09 /* ImageFetchService.swift */,
 			);
@@ -348,7 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C78FA3112301A252001619E2 /* SampleImageLoadingViewController.swift in Sources */,
-				C7A8BAB723047ED000F46317 /* ImageDetailsModel.swift in Sources */,
+				C7A8BAB723047ED000F46317 /* UserDetailsModel.swift in Sources */,
 				C78FA33D2301A381001619E2 /* ImageDownloader.swift in Sources */,
 				C7A8BAB42304701D00F46317 /* ImageCollectionViewController.swift in Sources */,
 				C7A8BABB2304821600F46317 /* ImageCollectionViewCell.swift in Sources */,

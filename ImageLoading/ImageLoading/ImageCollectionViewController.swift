@@ -19,7 +19,7 @@ class which downloads and shows list of images in UIcollectionView
 */
 class ImageCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    public var imageDetailsArray: Array<ImageDetailsModel>?
+    public var userDetailsArray: Array<UserDetailsModel>?
     private var cacheManager: FileCache?
     private var downloader: ImageDownloader = ImageDownloader()
     private let refreshControl : UIRefreshControl = UIRefreshControl()
@@ -30,7 +30,7 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         super.viewDidLoad()
         self.cacheManager = FileCache(size: 100)
         
-        fetchImageDetailsFromJson()
+        fetchUserDetailsFromJson()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         refreshControl.addTarget(self, action: #selector(refreshImages(_:)), for: .valueChanged)
@@ -52,17 +52,17 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     */
     @objc private func refreshImages(_ sender: Any) {
         // Fetch image Details
-        fetchImageDetailsFromJson()
+        fetchUserDetailsFromJson()
         cacheManager?.clearCache()
         self.collectionView.reloadData()
     }
     
-    private func fetchImageDetailsFromJson(){
+    private func fetchUserDetailsFromJson(){
         
         let imageFetchServie : ImageFetchService = ImageFetchService()
         group.enter()
-        imageFetchServie.fetchImageDetails(url: JSONURL, downloader: downloader) { (imageDetailsArray : Array<ImageDetailsModel>?) in
-            self.imageDetailsArray = imageDetailsArray
+        imageFetchServie.fetchUserDetails(url: JSONURL, downloader: downloader) { (userDetailsArray : Array<UserDetailsModel>?) in
+            self.userDetailsArray = userDetailsArray
             DispatchQueue.main.async {
                 if(self.refreshControl.isRefreshing)
                 {
@@ -99,8 +99,8 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         group.wait()
-        guard let imageDetailsArray = imageDetailsArray else {return 1}
-        return imageDetailsArray.count
+        guard let userDetailsArray = userDetailsArray else {return 1}
+        return userDetailsArray.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -108,22 +108,22 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
         let cell : ImageCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCollectionViewCell
         
         // Configure the cell
-        guard let imageDetailsArray = imageDetailsArray else {return cell}
-        let imageDetails : ImageDetailsModel = imageDetailsArray[indexPath.row];
-        let imageData: NSData! = (cacheManager?.getFileForKey(key: imageDetails.imageURL as NSString))
-        if imageData != nil
+        guard let userDetailsArray = userDetailsArray else {return cell}
+        let userDetails : UserDetailsModel = userDetailsArray[indexPath.row];
+
+        if let imageData = cacheManager?.getFileForKey(key: userDetails.imageURL as NSString)
         {
-            cell.pinImageView.image = UIImage(data: imageData! as Data)
-            cell.imageName.text = imageDetails.userName
+            cell.pinImageView.image = UIImage(data: imageData as Data)
+            cell.imageName.text = userDetails.userName
         }
         else
         {
-            self.downloader.downloadFromURL(url: imageDetails.imageURL, saveInto: self.cacheManager, success: { (image: UIImage?) in
+            self.downloader.downloadFromURL(url: userDetails.imageURL, saveInto: self.cacheManager, success: { (image: UIImage?) in
                 if let image = image
                 {
                     DispatchQueue.main.async {
                         self.showImage(image: image, withAnimation: cell.pinImageView)
-                        cell.imageName.text = imageDetails.userName
+                        cell.imageName.text = userDetails.userName
                     }
                 }
                 })
@@ -136,9 +136,9 @@ class ImageCollectionViewController: UICollectionViewController, UICollectionVie
     }
 
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let imageDetailsArray = imageDetailsArray else {return }
-        let imageDetails : ImageDetailsModel = imageDetailsArray[indexPath.row];
-        self.downloader.cancelDownloadForURL(url: imageDetails.imageURL)
+        guard let userDetailsArray = userDetailsArray else {return }
+        let userDetails : UserDetailsModel = userDetailsArray[indexPath.row];
+        self.downloader.cancelDownloadForURL(url: userDetails.imageURL)
     }
     
     func showImage(image : UIImage, withAnimation imageView : UIImageView) {
